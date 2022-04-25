@@ -198,12 +198,10 @@ async def cow_error(ctx, error):
 
 @bot.command(pass_context=True)  # Дебил(Гоблин) по номеру
 @commands.has_role("Admin")
-async def deb(ctx, numb_check=""):
-    if numb_check == "":
-        rand_check = True
-    elif numb_check != "":
-        rand_check = False
-    await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.debil, rand=rand_check, numb=numb_check)
+async def deb(ctx, numb=""):
+    if numb == "":
+        numb = str((random.randint(1, 13)))
+    await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.debil, numb=numb)
 
 
 @deb.error  # ошибка Дебила по номеру
@@ -256,6 +254,20 @@ async def kak(ctx):
 
 @kak.error  # ошибка какаю в туалете
 async def kak_error(ctx, error):
+    await ctx.send(random.choice(answers.error_music))
+    print(error)
+
+
+@bot.command(pass_context=True)  # Какаю в туалете
+@commands.has_role("Admin")
+async def bam(ctx, numb=""):
+    if numb == "":
+        numb = str((random.randint(1, 2)))
+    await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.bam, numb=numb)
+
+
+@bam.error  # ошибка какаю в туалете
+async def bam_error(ctx, error):
     await ctx.send(random.choice(answers.error_music))
     print(error)
 

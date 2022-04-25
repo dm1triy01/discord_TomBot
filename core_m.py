@@ -37,10 +37,8 @@ async def play_core(ctx, arg, bot):
         await ctx.send('Пиши в "cmd".')
 
 
-async def voice_command(ctx, bot, path, rand=False, numb="", pic=""):
+async def voice_command(ctx, bot, path, numb="", pic=""):
     voice = get(bot.voice_clients, guild=ctx.guild)
-    if rand is True:
-        numb = str((random.randint(1, 13)))
     if ctx.channel.id == cfg.music_channel:
         voice_channel = ctx.author.voice.channel
         afk_channel = bot.get_channel(cfg.afk_channel)
