@@ -19,7 +19,7 @@ def datecheck(yy, mm, dd):
     return dimatmp
 
 
-def message_handler(message):
+async def message_handler(message):
     channel = message.channel
     if channel == message.channel:  # данный if исключает повторное вызывание команд бота
         today = datetime.today()
