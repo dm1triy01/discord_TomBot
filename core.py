@@ -16,7 +16,21 @@ def datecheck(yy, mm, dd):
         d = d + 1
         if d % 4 == 0:
             dimatmp = dimatmp + 1
-    return dimatmp
+    dimalist = list(str(dimatmp))
+    if dimatmp < 10:
+        number = dimalist[-1]
+    else:
+        number = dimalist[-2] + dimalist[-1]
+    if 11 <= int(number) <= 19:
+        word = "дней"
+    else:
+        if int(dimalist[-1]) == 1:
+            word = "день"
+        elif 2 <= int(dimalist[-1]) <= 4:
+            word = "дня"
+        else:
+            word = "дней"
+    return str(str(dimatmp) + " " + word)
 
 
 async def message_handler(message):

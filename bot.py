@@ -17,7 +17,6 @@ import answers
 import cfg
 import core
 
-
 from youtube_dl import YoutubeDL
 from asyncio import sleep
 
@@ -62,13 +61,13 @@ async def dates(ctx):
     # ruttmp = core.datecheck(2000, 9, 26)
 
     await ctx.send("```Даты: \n\n" +
-                   "До дня рождения Димы " + str(dimatmp) + " дней. (28 августа)\n" +
-                   "До дня рождения Макса " + str(makstmp) + " дней. (13 октября)\n" +
-                   "До дня рождения Кати " + str(katyatmp) + " дней. (11 февраля)\n" +
-                   "До дня рождения Серёги " + str(sertmp) + " дней. (30 июня)\n" +
-                   "До дня рождения Бори " + str(bortmp) + " дней. (7 сентября)\n\n" +
-                   "До нового года осталось " + str(nytmp) + " дней.\n" +
-                   "До лета осталось " + str(summertmp) + " дней.\n```"
+                   "До дня рождения Димы " + str(dimatmp) + ". (28 августа)\n" +
+                   "До дня рождения Макса " + str(makstmp) + ". (13 октября)\n" +
+                   "До дня рождения Кати " + str(katyatmp) + ". (11 февраля)\n" +
+                   "До дня рождения Серёги " + str(sertmp) + ". (30 июня)\n" +
+                   "До дня рождения Бори " + str(bortmp) + ". (7 сентября)\n\n" +
+                   "До нового года осталось " + str(nytmp) + ".\n" +
+                   "До лета осталось " + str(summertmp) + ".\n```"
                    )
 
 
@@ -249,7 +248,7 @@ async def gmv_error(ctx, error):
 @bot.command(pass_context=True)  # Какаю в туалете
 @commands.has_role("Admin")
 async def kak(ctx):
-    await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.kakayu)
+    await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.kak)
 
 
 @kak.error  # ошибка какаю в туалете
@@ -427,6 +426,7 @@ async def m(ctx, message):
 @bot.event  # разговоры с Томом
 async def on_message(message):
     await core.message_handler(message=message)
+    # await core.music_handler(message=message)
     await bot.process_commands(message)  # исключает повторное вызывание команд бота
 
 

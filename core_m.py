@@ -2,6 +2,8 @@ import discord
 from discord.utils import get
 import random
 
+
+
 from youtube_dl import YoutubeDL
 
 YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'False'}
@@ -58,3 +60,23 @@ async def voice_command(ctx, bot, path, numb="", pic=""):
             await ctx.send('Не вижу тебя в нужном канале.')
     else:
         await ctx.send('Пиши в "cmd".')
+
+
+# async def music_handler(message):
+#     channel = message.channel
+#     if channel == message.channel:  # данный if исключает повторное вызывание команд бота
+#
+#         filter = "JSON file (*.json)|*.json|All Files (*.*)|*.*||"
+#         filename = rs.OpenFileName("Open JSON File", filter)
+#
+#         # Read JSON data into the datastore variable
+#         if filename:
+#             with open(filename, 'r') as f:
+#                 datastore = json.load(f)
+#
+#         # Use the new datastore datastructure
+#         print
+#         datastore["office"]["parking"]["style"]
+#
+#         music_commands = "" # execute from .json
+#         if message == "!" + music_commands
