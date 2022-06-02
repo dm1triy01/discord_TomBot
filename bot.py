@@ -183,92 +183,92 @@ async def leave_error(ctx, error):
     print(error)
 
 
-@bot.command(pass_context=True, aliases=['korova'])  # Корова
-@commands.has_role("Admin")
-async def cow(ctx):
-    await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.cow, pic=cfg.cow_pic)
-
-
-@cow.error  # ошибка Коровы
-async def cow_error(ctx, error):
-    await ctx.send(random.choice(answers.error_music))
-    print(error)
-
-
-@bot.command(pass_context=True)  # Дебил(Гоблин) по номеру
-@commands.has_role("Admin")
-async def deb(ctx, numb=""):
-    if numb == "":
-        numb = str((random.randint(1, 13)))
-    await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.debil, numb=numb)
-
-
-@deb.error  # ошибка Дебила по номеру
-async def deb_error(ctx, error):
-    await ctx.send(random.choice(answers.error_music))
-    print(error)
-
-
-@bot.command(pass_context=True, aliases=['bl'])  # Blyat Маша
-@commands.has_role("Admin")
-async def blyat(ctx):
-    await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.blyat)
-
-
-@blyat.error  # ошибка Blyat
-async def blyat_error(ctx, error):
-    await ctx.send(random.choice(answers.error_music))
-    print(error)
-
-
-@bot.command(pass_context=True)  # UwU
-@commands.has_role("Admin")
-async def uwu(ctx):
-    await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.uwu)
-
-
-@uwu.error  # ошибка uwu
-async def uwu_error(ctx, error):
-    await ctx.send(random.choice(answers.error_music))
-    print(error)
-
-
-@bot.command(pass_context=True)  # Good morning Vietnam
-@commands.has_role("Admin")
-async def gmv(ctx):
-    await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.gmv)
-
-
-@gmv.error  # ошибка gmv
-async def gmv_error(ctx, error):
-    await ctx.send(random.choice(answers.error_music))
-    print(error)
-
-
-@bot.command(pass_context=True)  # Какаю в туалете
-@commands.has_role("Admin")
-async def kak(ctx):
-    await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.kak)
-
-
-@kak.error  # ошибка какаю в туалете
-async def kak_error(ctx, error):
-    await ctx.send(random.choice(answers.error_music))
-    print(error)
-
-
-@bot.command(pass_context=True)  # Какаю в туалете
-@commands.has_role("Admin")
-async def bam(ctx, numb=""):
-    if numb == "":
-        numb = str((random.randint(1, 2)))
-    await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.bam, numb=numb)
-
-
-@bam.error  # ошибка какаю в туалете
-async def bam_error(ctx, error):
-    await ctx.send(random.choice(answers.error_music))
-    print(error)
+# @bot.command(pass_context=True, aliases=['korova'])  # Корова
+# @commands.has_role("Admin")
+# async def cow(ctx):
+#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.cow, pic=cfg.cow_pic)
+#
+#
+# @cow.error  # ошибка Коровы
+# async def cow_error(ctx, error):
+#     await ctx.send(random.choice(answers.error_music))
+#     print(error)
+#
+#
+# @bot.command(pass_context=True)  # Дебил(Гоблин) по номеру
+# @commands.has_role("Admin")
+# async def deb(ctx, numb=""):
+#     if numb == "":
+#         numb = str((random.randint(1, 13)))
+#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.debil, numb=numb)
+#
+#
+# @deb.error  # ошибка Дебила по номеру
+# async def deb_error(ctx, error):
+#     await ctx.send(random.choice(answers.error_music))
+#     print(error)
+#
+#
+# @bot.command(pass_context=True, aliases=['bl'])  # Blyat Маша
+# @commands.has_role("Admin")
+# async def blyat(ctx):
+#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.blyat)
+#
+#
+# @blyat.error  # ошибка Blyat
+# async def blyat_error(ctx, error):
+#     await ctx.send(random.choice(answers.error_music))
+#     print(error)
+#
+#
+# @bot.command(pass_context=True)  # UwU
+# @commands.has_role("Admin")
+# async def uwu(ctx):
+#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.uwu)
+#
+#
+# @uwu.error  # ошибка uwu
+# async def uwu_error(ctx, error):
+#     await ctx.send(random.choice(answers.error_music))
+#     print(error)
+#
+#
+# @bot.command(pass_context=True)  # Good morning Vietnam
+# @commands.has_role("Admin")
+# async def gmv(ctx):
+#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.gmv)
+#
+#
+# @gmv.error  # ошибка gmv
+# async def gmv_error(ctx, error):
+#     await ctx.send(random.choice(answers.error_music))
+#     print(error)
+#
+#
+# @bot.command(pass_context=True)  # Какаю в туалете
+# @commands.has_role("Admin")
+# async def kak(ctx):
+#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.kak)
+#
+#
+# @kak.error  # ошибка какаю в туалете
+# async def kak_error(ctx, error):
+#     await ctx.send(random.choice(answers.error_music))
+#     print(error)
+#
+#
+# @bot.command(pass_context=True)  # Какаю в туалете
+# @commands.has_role("Admin")
+# async def bam(ctx, numb=""):
+#     if numb == "":
+#         numb = str((random.randint(1, 2)))
+#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.bam, numb=numb)
+#
+#
+# @bam.error  # ошибка какаю в туалете
+# async def bam_error(ctx, error):
+#     await ctx.send(random.choice(answers.error_music))
+#     print(error)
 
 
 @bot.command()
@@ -426,7 +426,7 @@ async def m(ctx, message):
 @bot.event  # разговоры с Томом
 async def on_message(message):
     await core.message_handler(message=message)
-    # await core.music_handler(message=message)
+    await core_m.music_handler(message=message, bot=bot)
     await bot.process_commands(message)  # исключает повторное вызывание команд бота
 
 
