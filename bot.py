@@ -32,6 +32,9 @@ bot: Bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 @bot.event
 async def on_ready():
     print('Tom is ready')
+    servers = bot.guilds
+    for guild in servers:
+        print(str(guild.name) + ' ' + str(guild.id))
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="шлюх"))
 
 
@@ -102,6 +105,11 @@ async def helpm(ctx):
 @bot.command()  # ссылка на дискорд
 async def dis(ctx):
     await ctx.send("https://discord.gg/mkXgVXq")
+
+
+@bot.command()
+async def web(ctx):
+    await ctx.send("http://37.230.114.133:8000/")
 
 
 @bot.command()  # команда рандомного числа в диапазоне
