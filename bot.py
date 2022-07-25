@@ -16,15 +16,14 @@ import time
 import answers
 import cfg
 import core
+import core_m
 
 from youtube_dl import YoutubeDL
 from asyncio import sleep
 
-import core_m
 
 # YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'False'}
 # FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
-
 
 bot: Bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
@@ -109,7 +108,12 @@ async def dis(ctx):
 
 @bot.command()
 async def web(ctx):
-    await ctx.send("http://37.230.114.133:8000/")
+    embed = discord.Embed(
+        title="Tom Web",
+        url="http://37.230.114.133:8000/",
+        color=discord.Colour.dark_gold()
+    )
+    await ctx.send(embed=embed)
 
 
 @bot.command()  # команда рандомного числа в диапазоне
