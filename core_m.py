@@ -99,12 +99,9 @@ async def music_handler(message, bot):
                 numb = number[0]
             else:
                 numb = ""
-            print(numb)
-            print(command[0])
             with open(r'/root/bots/discord/rut/voice_info.json', 'r') as f:
                 datastore = json.load(f)
             check = (datastore["music"]["music_commands"]["music_commands_name"])
-            print(check)
             if re.search('[\']' + str(command[0]) + '[\']', str(check)) is not None:
 
                 path = (datastore["music"]["music_commands"][str(command[0])]["path"])

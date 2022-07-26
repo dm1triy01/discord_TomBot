@@ -288,7 +288,7 @@ async def play(ctx, arg):
     await core_m.play_core(ctx=ctx, arg=arg, bot=bot)
 
 
-@play.error  # ошибка какаю в туалете
+@play.error  # ошибка play
 async def play_error(ctx, error):
     await ctx.send(random.choice(answers.error_music))
     print(error)
@@ -311,6 +311,30 @@ async def m(ctx, message):
         await channel_m.send(message)
     else:
         await ctx.send('У тебя нет прав')
+
+
+@bot.command(pass_context=True)  # одобрить последнюю ссылку
+@commands.has_role("Admin")
+async def yes(ctx):
+    with open(r'/root/bots/discord/rut/url_tmp.txt', 'r') as f:
+        url = f.readlines()
+        f.close()
+    with open(r'/root/bots/discord/rut/url_white.txt', 'a') as f:
+        f.write(str(url[0]))
+        f.close()
+    await ctx.send(':white_medium_square: Ссылка в вайт листе')
+
+
+@bot.command(pass_context=True)  # занести в блэк лист последнюю ссылку
+@commands.has_role("Admin")
+async def no(ctx):
+    with open(r'/root/bots/discord/rut/url_tmp.txt', 'r') as f:
+        url = f.readlines()
+        f.close()
+    with open(r'/root/bots/discord/rut/url_black.txt', 'a') as f:
+        f.write(str(url[0]))
+        f.close()
+    await ctx.send(':black_medium_square: Ссылка в блэк листе')
 
 
 # @bot.command(pass_context=True)
@@ -439,6 +463,7 @@ async def m(ctx, message):
 async def on_message(message):
     await core.message_handler(message=message)
     await core_m.music_handler(message=message, bot=bot)
+    await core.danger_handler(message=message)
     await bot.process_commands(message)  # исключает повторное вызывание команд бота
 
 

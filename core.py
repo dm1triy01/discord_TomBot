@@ -3,6 +3,7 @@ import re
 import random
 
 import answers
+import cfg
 
 
 def datecheck(yy, mm, dd):
@@ -94,3 +95,28 @@ async def message_handler(message):
                 l2[0] = int(b)
             c = int(a) ** int(b)
             await channel.send(c)
+
+
+async def danger_handler(message):
+    channel = message.channel
+    if channel == message.channel:  # данный if исключает повторное вызывание команд бота
+        if channel.id == cfg.main_channel:
+            if re.search("(?P<url>https?://[^\s]+)", message.content):
+                url = re.search("(?P<url>https?://[^\s]+)", message.content).group(0)
+                url = re.split('/', url)[2]
+                with open(r'/root/bots/discord/rut/url_black.txt', 'r') as f:
+                    url_black = f.readlines()
+                    f.close()
+                with open(r'/root/bots/discord/rut/url_white.txt', 'r') as f:
+                    url_white = f.readlines()
+                    f.close()
+                if url in url_black:
+                    await channel.purge(limit=1)
+                    await channel.send(message.author.mention + " этот человек пытался отправить ссылку из черного листа! (Она удалена)")
+                elif url in url_white:
+                    pass
+                else:
+                    with open(r'/root/bots/discord/rut/url_tmp.txt', 'w') as f:
+                        f.write(str(url))
+                        f.close()
+                    await channel.send(message.author.mention + " скинул неизвестную ссылку, осторожно!")
