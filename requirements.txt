@@ -1,0 +1,4 @@
+schedule==1.1.0
+discord
+asyncio
+youtube_dl

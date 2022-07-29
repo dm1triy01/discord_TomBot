@@ -18,12 +18,8 @@ import cfg
 import core
 import core_m
 
-from youtube_dl import YoutubeDL
-from asyncio import sleep
-
-
-# YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'False'}
-# FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
+import db
+db = db.db
 
 bot: Bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
@@ -49,6 +45,18 @@ async def on_member_remove(member):
     print(str(member) + ' left the guild')
     channel = bot.get_channel(cfg.main_channel)
     await channel.send('**' + str(member) + '**' + ", ушел от нас, пока-пока :ghost:")
+
+
+@bot.event
+async def on_guild_join(guild):
+    await db.guild_add(id=guild.id, name=guild.name)
+    # print(str(guild.id) + " " + str(guild.name))
+
+
+@bot.event
+async def on_guild_remove(guild):
+    await db.guild_remove(id=guild.id)
+    # print(str(guild.id) + " " + str(guild.name))
 
 
 @bot.command()  # вывод дат с подсчетом
