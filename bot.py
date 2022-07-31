@@ -18,8 +18,8 @@ import cfg
 import core
 import core_m
 
-import db
-db = db.db
+import core_db
+db = core_db.db()
 
 bot: Bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
@@ -33,29 +33,29 @@ async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="шлюх"))
 
 
-@bot.event  # реакция бота на вход нового пользователя на сервер
-async def on_member_join(member):
-    print(str(member) + ' join the guild')
-    channel = bot.get_channel(cfg.main_channel)
-    await channel.send(str(member.mention) + ", добро пожаловать на наш сервер :smiley_cat:")
+# @bot.event  # реакция бота на вход нового пользователя на сервер
+# async def on_member_join(member):
+#     print(str(member) + ' join the guild')
+#     channel = bot.get_channel(cfg.main_channel)
+#     await channel.send(str(member.mention) + ", добро пожаловать на наш сервер :smiley_cat:")
 
 
-@bot.event  # реакция бота на выход пользователя с сервера
-async def on_member_remove(member):
-    print(str(member) + ' left the guild')
-    channel = bot.get_channel(cfg.main_channel)
-    await channel.send('**' + str(member) + '**' + ", ушел от нас, пока-пока :ghost:")
+# @bot.event  # реакция бота на выход пользователя с сервера
+# async def on_member_remove(member):
+#     print(str(member) + ' left the guild')
+#     channel = bot.get_channel(cfg.main_channel)
+#     await channel.send('**' + str(member) + '**' + ", ушел от нас, пока-пока :ghost:")
 
 
 @bot.event
 async def on_guild_join(guild):
-    await db.guild_add(id=guild.id, name=guild.name)
+    db.guild_add(id=guild.id, name=guild.name, status='1')
     # print(str(guild.id) + " " + str(guild.name))
 
 
 @bot.event
 async def on_guild_remove(guild):
-    await db.guild_remove(id=guild.id)
+    db.guild_remove(id=guild.id, status='0')
     # print(str(guild.id) + " " + str(guild.name))
 
 
