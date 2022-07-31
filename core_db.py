@@ -25,16 +25,59 @@ class db:
         #         print("Number of rows affected by statement '{}': {}".format(
         #             result.statement, result.rowcount))
 
-    def guild_add(self, id, name, status):
-        # with self.connection:
-        # cursor = self.connection.cursor()
-        print(status)
-        cmd = 'INSERT INTO guilds (id_guild, name_guild, status) VALUES (' + str(id) + ', \'' + str(
-            name) + '\',\'' + str(status) + '\')'
-        print(cmd)
-        self.cursor.execute(operation=cmd, multi=True)
+    def guild_add(self, guild_id, name, status):
+        check = self.guild_exist(guild_id=guild_id)
+        if check:
+            self.cursor.execute('UPDATE guilds SET status=\'' + str(status) + '\' WHERE id_guild=' + str(guild_id), multi=True)
+            self.connection.commit()
+        else:
+            self.cursor.execute('INSERT INTO guilds (id_guild, name_guild, status) VALUES (' + str(guild_id) + ', \'' + str(name) + '\',\'' + str(status) + '\')', multi=True)
+            self.connection.commit()
+
+    def guild_remove(self, guild_id, status):
+        self.cursor.execute('UPDATE guilds SET status=\'' + str(status) + '\' WHERE id_guild=' + str(guild_id), multi=True)
         self.connection.commit()
 
-    def guild_remove(self, id, status):
-        self.cursor.execute('UPDATE guilds SET status=\'' + str(status) + '\' WHERE id_guild=' + str(id), multi=True)
-        self.connection.commit()
+    def guild_exist(self, guild_id):
+        for result in self.cursor.execute('select id from guilds where id_guild=' + str(guild_id), multi=True):
+            if result.with_rows:
+                check = result.fetchall()
+        return ''.join(map(str, check[0]))
+
+    def voice_commands_get(self, id_g):
+        for result in self.cursor.execute('select name from music_commands where id_g=' + str(id_g), multi=True):
+            if result.with_rows:
+                check = result.fetchall()
+        return str(check)
+
+    def voice_path_get(self, id_g, command):
+        test = 'select pic from music_commands where id_g=' + str(id_g) + 'AND command=\'' + str(command) + '\''
+        print(test)
+        for result in self.cursor.execute('select path from music_commands where id_g=' + str(id_g) + ' AND name=\'' + str(command) + '\'', multi=True):
+            if result.with_rows:
+                check = result.fetchall()
+        return ''.join(map(str, check[0]))
+
+    def voice_pic_get(self, id_g, command):
+        for result in self.cursor.execute('select pic from music_commands where id_g=' + str(id_g) + ' AND name=\'' + str(command) + '\'', multi=True):
+            if result.with_rows:
+                check = result.fetchall()
+        return ''.join(map(str, check[0]))
+
+    def voice_amount_get(self, id_g, command):
+        for result in self.cursor.execute('select amount from music_commands where id_g=' + str(id_g) + ' AND name=\'' + str(command) + '\'', multi=True):
+            if result.with_rows:
+                check = result.fetchall()
+        return ''.join(map(str, check[0]))
+
+    def channel_afk_get(self, id_g):
+        for result in self.cursor.execute('select id_afk from channels where id_g=' + str(id_g), multi=True):
+            if result.with_rows:
+                check = result.fetchall()
+        return ''.join(map(str, check[0]))
+
+    def channel_general_get(self, id_g):
+        for result in self.cursor.execute('select id_general from channels where id_g=' + str(id_g), multi=True):
+            if result.with_rows:
+                check = result.fetchall()
+        return ''.join(map(str, check[0]))

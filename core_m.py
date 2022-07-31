@@ -12,13 +12,17 @@ YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'False'}
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
 
 import cfg
+import core_db
+
+db = core_db.db()
 
 
 async def play_core(ctx, arg, bot):
     voice = get(bot.voice_clients, guild=ctx.guild)
+    id_g = db.guild_exist(guild_id=ctx.guild.id)[0]
     if ctx.channel.id == cfg.music_channel:
         voice_channel = ctx.author.voice.channel
-        afk_channel = bot.get_channel(cfg.afk_channel)
+        afk_channel = bot.get_channel(int(db.channel_afk_get(id_g=id_g)))
         if voice_channel != None and voice_channel != afk_channel:
             if voice and voice.is_connected():
                 with YoutubeDL(YDL_OPTIONS) as ydl:
@@ -99,14 +103,21 @@ async def music_handler(message, bot):
                 numb = number[0]
             else:
                 numb = ""
-            with open(r'/root/bots/discord/rut/voice_info.json', 'r') as f:
-                datastore = json.load(f)
-            check = (datastore["music"]["music_commands"]["music_commands_name"])
-            if re.search('[\']' + str(command[0]) + '[\']', str(check)) is not None:
-
-                path = (datastore["music"]["music_commands"][str(command[0])]["path"])
-                pic = (datastore["music"]["music_commands"][str(command[0])]["pic"])
-                amount = (datastore["music"]["music_commands"][str(command[0])]["amount"])
+            id_g = db.guild_exist(guild_id=channel.guild.id)[0]
+            # if command[0] in db.voice_commands_get(id_g=id_g):
+            if re.search('[\']' + str(command[0]) + '[\']', db.voice_commands_get(id_g=id_g)) is not None:
+                path = db.voice_path_get(id_g=id_g, command=command[0])
+                pic = db.voice_pic_get(id_g=id_g, command=command[0])
+                amount = db.voice_amount_get(id_g=id_g, command=command[0])
+            # with open(r'/root/bots/discord/rut/voice_info.json', 'r') as f:
+            #     datastore = json.load(f)
+            # check = (datastore["music"]["music_commands"]["music_commands_name"])
+            # print(command[0])
+            # if re.search('[\']' + str(command[0]) + '[\']', str(check)) is not None:
+            #
+            #     path = (datastore["music"]["music_commands"][str(command[0])]["path"])
+            #     pic = (datastore["music"]["music_commands"][str(command[0])]["pic"])
+            #     amount = (datastore["music"]["music_commands"][str(command[0])]["amount"])
 
                 await voice_command_new(message=message, bot=bot, path=path, amount=amount, numb=numb, pic=pic)
             else:

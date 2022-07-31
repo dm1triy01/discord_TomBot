@@ -49,14 +49,12 @@ async def on_ready():
 
 @bot.event
 async def on_guild_join(guild):
-    db.guild_add(id=guild.id, name=guild.name, status='1')
-    # print(str(guild.id) + " " + str(guild.name))
+    db.guild_add(guild_id=guild.id, name=guild.name, status='1')
 
 
 @bot.event
 async def on_guild_remove(guild):
-    db.guild_remove(id=guild.id, status='0')
-    # print(str(guild.id) + " " + str(guild.name))
+    db.guild_remove(guild_id=guild.id, status='0')
 
 
 @bot.command()  # вывод дат с подсчетом
