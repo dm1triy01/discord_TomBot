@@ -82,7 +82,7 @@ async def dates(ctx):
 
 
 @bot.command()  # изменение статуса Тома
-@commands.has_role("Admin")
+@commands.has_permissions(administrator=True)
 async def status(ctx, s: int, text: str):
     if s == 1:
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=text))
@@ -151,7 +151,7 @@ async def spam_error(ctx, error):
 
 
 @bot.command(pass_context=True)  # чистка чата
-@commands.has_role("Admin")
+@commands.has_permissions(administrator=True)
 async def clear(ctx, n: int):
     await ctx.channel.purge(limit=n + 1)
     await ctx.send("Я съел `" + str(n) + "` сообщений")
@@ -171,7 +171,7 @@ async def day(ctx):
 
 
 @bot.command(pass_context=True, aliases=['j'])  # join
-@commands.has_role("Admin")
+@commands.has_permissions(administrator=True)
 async def join(ctx):
     global voice
     channel = ctx.message.author.voice.channel
@@ -186,7 +186,7 @@ async def join_error(ctx, error):
 
 
 @bot.command(pass_context=True, aliases=['l'])  # leave
-@commands.has_role("Admin")
+@commands.has_permissions(administrator=True)
 async def leave(ctx):
     channel = ctx.message.author.voice.channel
     voice = get(bot.voice_clients, guild=ctx.guild)
@@ -322,7 +322,7 @@ async def m(ctx, message):
 
 
 @bot.command(pass_context=True)  # одобрить последнюю ссылку
-@commands.has_role("Admin")
+@commands.has_permissions(administrator=True)
 async def yes(ctx):
     with open(r'/root/bots/discord/rut/url_tmp.txt', 'r') as f:
         url = f.readlines()
@@ -334,7 +334,7 @@ async def yes(ctx):
 
 
 @bot.command(pass_context=True)  # занести в блэк лист последнюю ссылку
-@commands.has_role("Admin")
+@commands.has_permissions(administrator=True)
 async def no(ctx):
     with open(r'/root/bots/discord/rut/url_tmp.txt', 'r') as f:
         url = f.readlines()
@@ -471,7 +471,7 @@ async def no(ctx):
 async def on_message(message):
     await core.message_handler(message=message)
     await core_m.music_handler(message=message, bot=bot)
-    await core.danger_handler(message=message)
+    # await core.danger_handler(message=message)
     await bot.process_commands(message)  # исключает повторное вызывание команд бота
 
 
