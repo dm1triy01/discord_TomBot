@@ -33,18 +33,20 @@ async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="шлюх"))
 
 
-# @bot.event  # реакция бота на вход нового пользователя на сервер
-# async def on_member_join(member):
-#     print(str(member) + ' join the guild')
-#     channel = bot.get_channel(cfg.main_channel)
-#     await channel.send(str(member.mention) + ", добро пожаловать на наш сервер :smiley_cat:")
+@bot.event  # реакция бота на вход нового пользователя на сервер
+async def on_member_join(member):
+    print(str(member) + ' join the guild')
+    guild_id_db = db.guild_exist(guild_id=member.guild.id)
+    channel = bot.get_channel(int(db.channel_general_get(id_g=guild_id_db)))
+    await channel.send(str(member.mention) + ", добро пожаловать на наш сервер :smiley_cat:")
 
 
-# @bot.event  # реакция бота на выход пользователя с сервера
-# async def on_member_remove(member):
-#     print(str(member) + ' left the guild')
-#     channel = bot.get_channel(cfg.main_channel)
-#     await channel.send('**' + str(member) + '**' + ", ушел от нас, пока-пока :ghost:")
+@bot.event  # реакция бота на выход пользователя с сервера
+async def on_member_remove(member):
+    print(str(member) + ' left the guild')
+    guild_id_db = db.guild_exist(guild_id=member.guild.id)
+    channel = bot.get_channel(int(db.channel_general_get(id_g=guild_id_db)))
+    await channel.send('**' + str(member) + '**' + " ушел от нас, пока-пока :ghost:")
 
 
 @bot.event
