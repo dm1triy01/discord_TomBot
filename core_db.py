@@ -26,6 +26,7 @@ class db:
         #             result.statement, result.rowcount))
 
     def guild_add(self, guild_id, name, status):
+        self.check_connection()
         check = self.guild_exist(guild_id=guild_id)
         if check:
             self.cursor.execute('UPDATE guilds SET status=\'' + str(status) + '\' WHERE id_guild=' + str(guild_id), multi=True)
@@ -35,22 +36,26 @@ class db:
             self.connection.commit()
 
     def guild_remove(self, guild_id, status):
+        self.check_connection()
         self.cursor.execute('UPDATE guilds SET status=\'' + str(status) + '\' WHERE id_guild=' + str(guild_id), multi=True)
         self.connection.commit()
 
     def guild_exist(self, guild_id):
+        self.check_connection()
         for result in self.cursor.execute('select id from guilds where id_guild=' + str(guild_id), multi=True):
             if result.with_rows:
                 check = result.fetchall()
         return ''.join(map(str, check[0]))
 
     def voice_commands_get(self, id_g):
+        self.check_connection()
         for result in self.cursor.execute('select name from music_commands where id_g=' + str(id_g), multi=True):
             if result.with_rows:
                 check = result.fetchall()
         return str(check)
 
     def voice_path_get(self, id_g, command):
+        self.check_connection()
         test = 'select pic from music_commands where id_g=' + str(id_g) + 'AND command=\'' + str(command) + '\''
         print(test)
         for result in self.cursor.execute('select path from music_commands where id_g=' + str(id_g) + ' AND name=\'' + str(command) + '\'', multi=True):
@@ -59,25 +64,41 @@ class db:
         return ''.join(map(str, check[0]))
 
     def voice_pic_get(self, id_g, command):
+        self.check_connection()
         for result in self.cursor.execute('select pic from music_commands where id_g=' + str(id_g) + ' AND name=\'' + str(command) + '\'', multi=True):
             if result.with_rows:
                 check = result.fetchall()
         return ''.join(map(str, check[0]))
 
     def voice_amount_get(self, id_g, command):
+        self.check_connection()
         for result in self.cursor.execute('select amount from music_commands where id_g=' + str(id_g) + ' AND name=\'' + str(command) + '\'', multi=True):
             if result.with_rows:
                 check = result.fetchall()
         return ''.join(map(str, check[0]))
 
     def channel_afk_get(self, id_g):
+        self.check_connection()
         for result in self.cursor.execute('select id_afk from channels where id_g=' + str(id_g), multi=True):
             if result.with_rows:
                 check = result.fetchall()
         return ''.join(map(str, check[0]))
 
     def channel_general_get(self, id_g):
+        self.check_connection()
         for result in self.cursor.execute('select id_general from channels where id_g=' + str(id_g), multi=True):
             if result.with_rows:
                 check = result.fetchall()
         return ''.join(map(str, check[0]))
+
+    def check_connection(self):
+        if self.connection.is_connected():
+            pass
+        else:
+            self.connection = mysql.connector.connect(
+                host=cfg.server,
+                user=cfg.username,
+                passwd=cfg.password,
+                database=cfg.database,
+            )
+            self.cursor = self.connection.cursor(buffered=True)
