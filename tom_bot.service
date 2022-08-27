@@ -1,0 +1,11 @@
+[Unit]
+Description=Discord RuT bot
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python3 /root/bots/discord/rut/bot.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
