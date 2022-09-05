@@ -30,7 +30,7 @@ async def on_ready():
     servers = bot.guilds
     for guild in servers:
         print(str(guild.name) + ' ' + str(guild.id))
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="шлюх"))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=str(db.bot_status_get())))
 
 
 @bot.event  # реакция бота на вход нового пользователя на сервер
@@ -85,10 +85,13 @@ async def dates(ctx):
 @commands.has_permissions(administrator=True)
 async def status(ctx, s: int, text: str):
     if s == 1:
+        db.bot_status_mod(text=text)
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=text))
     if s == 2:
+        db.bot_status_mod(text=text)
         await bot.change_presence(activity=discord.Game(name=text))
     if s == 3:
+        db.bot_status_mod(text=text)
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=text))
 
 
