@@ -103,22 +103,12 @@ async def music_handler(message, bot):
                 numb = number[0]
             else:
                 numb = ""
-            id_g = db.guild_exist(guild_id=channel.guild.id)[0]
-            # if command[0] in db.voice_commands_get(id_g=id_g):
-            if re.search('[\']' + str(command[0]) + '[\']', db.voice_commands_get(id_g=id_g)) is not None:
-                path = db.voice_path_get(id_g=id_g, command=command[0])
-                pic = db.voice_pic_get(id_g=id_g, command=command[0])
-                amount = db.voice_amount_get(id_g=id_g, command=command[0])
-            # with open(r'/root/bots/discord/rut/voice_info.json', 'r') as f:
-            #     datastore = json.load(f)
-            # check = (datastore["music"]["music_commands"]["music_commands_name"])
-            # print(command[0])
-            # if re.search('[\']' + str(command[0]) + '[\']', str(check)) is not None:
-            #
-            #     path = (datastore["music"]["music_commands"][str(command[0])]["path"])
-            #     pic = (datastore["music"]["music_commands"][str(command[0])]["pic"])
-            #     amount = (datastore["music"]["music_commands"][str(command[0])]["amount"])
-
-                await voice_command_new(message=message, bot=bot, path=path, amount=amount, numb=numb, pic=pic)
-            else:
-                pass
+            if hasattr(channel, 'guild'):
+                id_g = db.guild_exist(guild_id=channel.guild.id)[0]
+                if re.search('[\']' + str(command[0]) + '[\']', db.voice_commands_get(id_g=id_g)) is not None:
+                    path = db.voice_path_get(id_g=id_g, command=command[0])
+                    pic = db.voice_pic_get(id_g=id_g, command=command[0])
+                    amount = db.voice_amount_get(id_g=id_g, command=command[0])
+                    await voice_command_new(message=message, bot=bot, path=path, amount=amount, numb=numb, pic=pic)
+                else:
+                    pass
