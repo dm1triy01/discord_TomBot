@@ -29,15 +29,19 @@ class db:
         self.check_connection()
         check = self.guild_exist(guild_id=guild_id)
         if check:
-            self.cursor.execute('UPDATE guilds SET status=\'' + str(status) + '\' WHERE id_guild=' + str(guild_id), multi=True)
+            self.cursor.execute('UPDATE guilds SET status=\'' + str(status) + '\' WHERE id_guild=' + str(guild_id),
+                                multi=True)
             self.connection.commit()
         else:
-            self.cursor.execute('INSERT INTO guilds (id_guild, name_guild, status) VALUES (' + str(guild_id) + ', \'' + str(name) + '\',\'' + str(status) + '\')', multi=True)
+            self.cursor.execute(
+                'INSERT INTO guilds (id_guild, name_guild, status) VALUES (' + str(guild_id) + ', \'' + str(
+                    name) + '\',\'' + str(status) + '\')', multi=True)
             self.connection.commit()
 
     def guild_remove(self, guild_id, status):
         self.check_connection()
-        self.cursor.execute('UPDATE guilds SET status=\'' + str(status) + '\' WHERE id_guild=' + str(guild_id), multi=True)
+        self.cursor.execute('UPDATE guilds SET status=\'' + str(status) + '\' WHERE id_guild=' + str(guild_id),
+                            multi=True)
         self.connection.commit()
 
     def guild_exist(self, guild_id):
@@ -56,23 +60,29 @@ class db:
 
     def voice_path_get(self, id_g, command):
         self.check_connection()
-        test = 'select pic from music_commands where id_g=' + str(id_g) + 'AND command=\'' + str(command) + '\''
-        print(test)
-        for result in self.cursor.execute('select path from music_commands where id_g=' + str(id_g) + ' AND name=\'' + str(command) + '\'', multi=True):
+        # test = 'select pic from music_commands where id_g=' + str(id_g) + 'AND command=\'' + str(command) + '\''
+        # print(test)
+        for result in self.cursor.execute(
+                'select path from music_commands where id_g=' + str(id_g) + ' AND name=\'' + str(command) + '\'',
+                multi=True):
             if result.with_rows:
                 check = result.fetchall()
         return ''.join(map(str, check[0]))
 
     def voice_pic_get(self, id_g, command):
         self.check_connection()
-        for result in self.cursor.execute('select pic from music_commands where id_g=' + str(id_g) + ' AND name=\'' + str(command) + '\'', multi=True):
+        for result in self.cursor.execute(
+                'select pic from music_commands where id_g=' + str(id_g) + ' AND name=\'' + str(command) + '\'',
+                multi=True):
             if result.with_rows:
                 check = result.fetchall()
         return ''.join(map(str, check[0]))
 
     def voice_amount_get(self, id_g, command):
         self.check_connection()
-        for result in self.cursor.execute('select amount from music_commands where id_g=' + str(id_g) + ' AND name=\'' + str(command) + '\'', multi=True):
+        for result in self.cursor.execute(
+                'select amount from music_commands where id_g=' + str(id_g) + ' AND name=\'' + str(command) + '\'',
+                multi=True):
             if result.with_rows:
                 check = result.fetchall()
         return ''.join(map(str, check[0]))
@@ -102,3 +112,15 @@ class db:
                 database=cfg.database,
             )
             self.cursor = self.connection.cursor(buffered=True)
+
+    def bot_status_get(self):
+        self.check_connection()
+        for result in self.cursor.execute('select status from bot_info', multi=True):
+            if result.with_rows:
+                check = result.fetchall()
+        return ''.join(map(str, check[0]))
+
+    def bot_status_mod(self, text):
+        self.check_connection()
+        self.cursor.execute('UPDATE bot_info SET status=\'' + str(text) + '\' WHERE id=1', multi=True)
+        self.connection.commit()
