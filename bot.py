@@ -19,6 +19,7 @@ import core
 import core_m
 
 import core_db
+
 db = core_db.db()
 
 bot: Bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
@@ -206,94 +207,6 @@ async def leave_error(ctx, error):
     print(error)
 
 
-# @bot.command(pass_context=True, aliases=['korova'])  # Корова
-# @commands.has_role("Admin")
-# async def cow(ctx):
-#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.cow, pic=cfg.cow_pic)
-#
-#
-# @cow.error  # ошибка Коровы
-# async def cow_error(ctx, error):
-#     await ctx.send(random.choice(answers.error_music))
-#     print(error)
-#
-#
-# @bot.command(pass_context=True)  # Дебил(Гоблин) по номеру
-# @commands.has_role("Admin")
-# async def deb(ctx, numb=""):
-#     if numb == "":
-#         numb = str((random.randint(1, 13)))
-#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.debil, numb=numb)
-#
-#
-# @deb.error  # ошибка Дебила по номеру
-# async def deb_error(ctx, error):
-#     await ctx.send(random.choice(answers.error_music))
-#     print(error)
-#
-#
-# @bot.command(pass_context=True, aliases=['bl'])  # Blyat Маша
-# @commands.has_role("Admin")
-# async def blyat(ctx):
-#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.blyat)
-#
-#
-# @blyat.error  # ошибка Blyat
-# async def blyat_error(ctx, error):
-#     await ctx.send(random.choice(answers.error_music))
-#     print(error)
-#
-#
-# @bot.command(pass_context=True)  # UwU
-# @commands.has_role("Admin")
-# async def uwu(ctx):
-#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.uwu)
-#
-#
-# @uwu.error  # ошибка uwu
-# async def uwu_error(ctx, error):
-#     await ctx.send(random.choice(answers.error_music))
-#     print(error)
-#
-#
-# @bot.command(pass_context=True)  # Good morning Vietnam
-# @commands.has_role("Admin")
-# async def gmv(ctx):
-#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.gmv)
-#
-#
-# @gmv.error  # ошибка gmv
-# async def gmv_error(ctx, error):
-#     await ctx.send(random.choice(answers.error_music))
-#     print(error)
-#
-#
-# @bot.command(pass_context=True)  # Какаю в туалете
-# @commands.has_role("Admin")
-# async def kak(ctx):
-#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.kak)
-#
-#
-# @kak.error  # ошибка какаю в туалете
-# async def kak_error(ctx, error):
-#     await ctx.send(random.choice(answers.error_music))
-#     print(error)
-#
-#
-# @bot.command(pass_context=True)  # Какаю в туалете
-# @commands.has_role("Admin")
-# async def bam(ctx, numb=""):
-#     if numb == "":
-#         numb = str((random.randint(1, 2)))
-#     await core_m.voice_command(ctx=ctx, bot=bot, path=cfg.bam, numb=numb)
-#
-#
-# @bam.error  # ошибка какаю в туалете
-# async def bam_error(ctx, error):
-#     await ctx.send(random.choice(answers.error_music))
-#     print(error)
-
-
 @bot.command()
 async def play(ctx, arg):
     await core_m.play_core(ctx=ctx, arg=arg, bot=bot)
@@ -347,98 +260,6 @@ async def no(ctx):
         f.close()
     await ctx.send(':black_medium_square: Ссылка в блэк листе')
 
-
-# @bot.command(pass_context=True)
-# @commands.has_role("Admin")
-# async def maf(ctx):
-#     await ctx.send('Играем в мафию\nСколько людей ?')
-#     count = await bot.wait_for('message')
-#     n = int(count.content)
-#     if n > 3:
-#         players = [0] * n
-#         for i in range(n):
-#             await ctx.send(str(i + 1) + '-й игрок:')
-#             players[i] = await bot.wait_for('message')
-#         mafia = (random.randint(0, n - 1))
-#         police = (random.randint(0, n - 1))
-#         while mafia == police:
-#             police = (random.randint(0, n - 1))
-#         maf = players[mafia]
-#         pol = players[police]
-#         members = []
-#         # for i in range(n):
-#         #     if players[i].content != maf.content and players[i].content != pol.content:
-#         #         members.append(players[i].content)
-#         maf_pm = bot.get_user(int(maf.content))
-#         pol_pm = bot.get_user(int(pol.content))
-#         # for i in range(n - 2):
-#         #     members_pm = bot.get_user(int(members[i]))
-#         #     await members_pm.send('Ты мирный житель :farmer:')
-#         await maf_pm.send('Ты мафия :spy:')
-#         await pol_pm.send('Ты комиссар :cop:')
-#         alive = n
-#         dead = 0
-#         mafia_is_dead = False
-#         for i in range(n):
-#             tmp = bot.get_user(int(players[i].content))
-#             await ctx.send('Твоя минута, ' + str(tmp.mention))
-#             await asyncio.sleep(5)
-#             await ctx.send('Адыхай!')
-#         await ctx.send('Наступила ночь... Выключаем микрофоны, господа и дамы.')
-#         while alive > 2:
-#             await maf_pm.send('0 - никого не убивать.')
-#             for i in range(alive):
-#                 tmp1 = bot.get_user(int(players[i].content))
-#                 await maf_pm.send(str(i + 1) + ' - ' + str(tmp1))
-#             await maf_pm.send('Кого убьешь этой ночью ?')
-#             kill = await bot.wait_for('message')
-#             for i in range(alive):
-#                 tmp2 = bot.get_user(int(players[i].content))
-#                 await pol_pm.send(str(i + 1) + ' - ' + str(tmp2))
-#             await pol_pm.send('Кого будешь проверять ?')
-#             confirm = await bot.wait_for('message')
-#             if int(players[int(confirm.content) - 1].content) != int(maf.content):
-#                 await pol_pm.send('Он не мафия')
-#             elif int(players[int(confirm.content) - 1].content) == int(maf.content):
-#                 await pol_pm.send('Он мафия!')
-#             await asyncio.sleep(5)
-#             await ctx.send('Доброе утро, жители Дискорда!')
-#             await asyncio.sleep(5)
-#             if kill.content == 0:
-#                 await ctx.send('На сегодняшний день все живы!')
-#             else:
-#                 await ctx.send('Этой ночью убили' + str(players[int(kill.content) - 1].content))
-#                 alive = alive - 1
-#                 del players[int(kill.content) - 1]
-#                 kill = None
-#             for i in range(alive):
-#                 tmp = bot.get_user(int(players[i].content))
-#                 await ctx.send('Твоя минута, ' + str(tmp.mention))
-#                 await asyncio.sleep(5)
-#                 await ctx.send('Адыхай!')
-#             await asyncio.sleep(5)
-#             await ctx.send('Время голосовать (итог голосования пишет 1 человек)!\n0 - никого не кикаем')
-#             for i in range(alive):
-#                 await ctx.send(str(i + 1) + ' - ' + str(players[i].content))
-#             kick = await bot.wait_for('message')
-#             if kick.content == 0:
-#                 pass
-#             elif int(players[int(kick.content) - 1].content) == int(maf.content):
-#                 await ctx.send('Мирные жители победили.')
-#                 break
-#             else:
-#                 await ctx.send(str(players[int(kick.content) - 1].content) + ' больше нет с нами.')
-#                 alive = alive - 1
-#                 del players[int(kick.content) - 1]
-#                 kick = None
-#     else:
-#         await ctx.send('Для игры в мафию нужно минимум 4 человека')
-
-
-# @bot.command()
-# async def check(ctx, arg):
-#     if isinstance(ctx.channel, discord.channel.DMChannel):
-#         await ctx.send(arg)
 
 ########################################################################## Event
 # async def ny():
