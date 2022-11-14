@@ -120,12 +120,3 @@ async def danger_handler(message):
                         f.write(str(url))
                         f.close()
                     await channel.send(message.author.mention + " скинул неизвестную ссылку, осторожно!")
-
-
-
-async def idiot_bot(message):
-    channel = message.channel
-    if channel == message.channel:  # данный if исключает повторное вызывание команд бота
-        if message.author.id == 936929561302675456:
-            await channel.purge(limit=1)
-            await channel.send(message.author.mention + " отсоси, ружище!")

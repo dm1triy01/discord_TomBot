@@ -294,7 +294,6 @@ async def no(ctx):
 @bot.event  # разговоры с Томом
 async def on_message(message):
     await core.message_handler(message=message)
-    await core.idiot_bot(message=message)
     await core_m.music_handler(message=message, bot=bot)
     # await core.danger_handler(message=message)
     await bot.process_commands(message)  # исключает повторное вызывание команд бота
