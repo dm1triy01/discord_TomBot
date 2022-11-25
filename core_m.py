@@ -3,16 +3,14 @@ from discord.utils import get
 import random
 import re
 
-# import rhinoscriptsyntax as rs
-import json
-
 from youtube_dl import YoutubeDL
+
+import cfg
+import core_db
 
 YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'False'}
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
 
-import cfg
-import core_db
 
 db = core_db.db()
 
