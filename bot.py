@@ -302,3 +302,4 @@ async def on_message(message):
 # bot.loop.create_task(ny())
 # bot.loop.create_task(reminder())
 bot.run(cfg.token_id)
+
