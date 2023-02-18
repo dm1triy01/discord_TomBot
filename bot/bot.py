@@ -1,17 +1,9 @@
 import asyncio
 import random
-import os
-import re
-from datetime import date, datetime, timedelta
 import discord
-from discord.ext import commands
 from discord.utils import get
 from discord.ext.commands import Bot
-from discord import FFmpegPCMAudio
-from os import system
 from discord.ext import commands
-import schedule
-import time
 
 import answers
 import cfg

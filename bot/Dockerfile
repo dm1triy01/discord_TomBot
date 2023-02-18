@@ -2,8 +2,7 @@ FROM debian:bullseye-20221024
 LABEL maintainer="dm1triy01"
 
 RUN apt update; \
-    apt install python3 python3-pip; \
-    apt clean
+    apt install -y python3 python3-pip
 
 COPY . ./root/bot/src/
 
