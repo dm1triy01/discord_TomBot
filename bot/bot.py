@@ -292,7 +292,7 @@ async def on_message(message):
     await bot.process_commands(message)  # исключает повторное вызывание команд бота
 
 
-logging.basicConfig(filename="/root/bot/logs/bot.log",
+logging.basicConfig(filename="/root/bot/logs/system_bot.log",
                     filemode='a',
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                     datefmt='%H:%M:%S',
