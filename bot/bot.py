@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import random
 import discord
 from discord.utils import get
@@ -291,6 +292,15 @@ async def on_message(message):
     await bot.process_commands(message)  # исключает повторное вызывание команд бота
 
 
+logging.basicConfig(filename="/root/bot/logs/bot.log",
+                    filemode='a',
+                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                    datefmt='%H:%M:%S',
+                    level=logging.DEBUG)
+
+logging.info("Running Tom Bot")
+
+logger = logging.getLogger('tom_bot')
 # bot.loop.create_task(ny())
 # bot.loop.create_task(reminder())
 bot.run(cfg.token_id)

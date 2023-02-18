@@ -10,7 +10,7 @@ services:
       TOM_DB_URL: postgresql://localhost:5432/tom
       TOM_DB_USERNAME: tom
       TOM_DB_PASSWORD: tom123456
-    build: bot
+    build: ./bot
     volumes:
       - /srv/bot/config:/root/bot/config
       - /srv/bot/logs:/root/bot/logs
