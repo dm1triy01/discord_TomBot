@@ -1,7 +1,5 @@
 schedule==1.1.0
 discord==1.7.3
-asyncio==3.0.1
+asyncio
 youtube_dl==2021.12.17
-
-mysql~=0.0.3
 mysql-connector-python~=8.0.30
