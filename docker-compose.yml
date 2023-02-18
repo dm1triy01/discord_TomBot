@@ -1,7 +1,7 @@
 version: "3"
 services:
   tom_bot:
-    image: bot:v2.0
+    image: dm1/tom_bot:2.0
     build: ./bot
     container_name: "tom_bot"
     networks:
