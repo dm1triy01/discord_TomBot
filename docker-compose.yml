@@ -7,11 +7,9 @@ services:
     depends_on:
       - tom_database
     environment:
-      TOM_DB_URL: postgresql://example/tom_bot
-#      TOM_DB_USERNAME: admin
-#      TOM_DB_PASSWORD: Tom123456
-#      TOM_BOT_TOKEN:
-#      TOM_BOT_OWNER_ID:
+      TOM_DB_URL: postgresql://localhost:5432/tom
+      TOM_DB_USERNAME: tom
+      TOM_DB_PASSWORD: tom123456
     build: bot
     volumes:
       - /srv/bot/config:/root/bot/config
