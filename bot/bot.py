@@ -8,10 +8,8 @@ from discord.ext import commands
 
 import answers
 import cfg
-import core
-import core_m
-
-import core_db
+from bot.func import core, core_m
+from bot.db import core_db
 
 db = core_db.db()
 

@@ -6,7 +6,7 @@ import re
 from youtube_dl import YoutubeDL
 
 import cfg
-import core_db
+from bot.db import core_db
 
 YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'False'}
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
@@ -41,29 +41,6 @@ async def play_core(ctx, arg, bot):
             await ctx.send('Не вижу тебя в нужном канале.')
     else:
         await ctx.send('Пиши в "cmd".')
-
-
-# async def voice_command_old(ctx, bot, path, numb="", pic=""):  # for cmd
-#     voice = get(bot.voice_clients, guild=ctx.guild)
-#     if ctx.channel.id == cfg.music_channel:
-#         voice_channel = ctx.author.voice.channel
-#         afk_channel = bot.get_channel(cfg.afk_channel)
-#         if voice_channel is not None and voice_channel != afk_channel:
-#             if voice and voice.is_connected():
-#                 voice.play(discord.FFmpegPCMAudio(executable=cfg.ffmpeg,
-#                                                   source=str(path) + str(numb) + ".mp3"))
-#                 if pic != "":
-#                     await ctx.send(str(pic))
-#             else:
-#                 vc = await voice_channel.connect()
-#                 vc.play(discord.FFmpegPCMAudio(executable=cfg.ffmpeg,
-#                                                source=str(path) + str(numb) + ".mp3"))
-#                 if pic != "":
-#                     await ctx.send(str(pic))
-#         else:
-#             await ctx.send('Не вижу тебя в нужном канале.')
-#     else:
-#         await ctx.send('Пиши в "cmd".')
 
 
 async def voice_command_new(message, bot, path, amount, numb="", pic=""):  # for handler

@@ -37,14 +37,6 @@ services:
       - /srv/postgresql:/var/lib/postgresql:z
       - /srv/postgresql/data:/var/lib/postgresql/data:z
 
-#  tom_webui:
-#    container_name: "tom_webui"
-#    environment: []
-#    build: webui
-#    volumes: []
-#    ports:
-#      - "80:80"
-
 networks:
   tomnet:
     driver: bridge

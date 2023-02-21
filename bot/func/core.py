@@ -2,7 +2,8 @@ from datetime import date, datetime
 import re
 import random
 
-import answers
+# import answers
+from bot import answers
 import cfg
 
 
@@ -40,10 +41,8 @@ async def message_handler(message):
         today = datetime.today()
         print(today.strftime("%Y.%m.%d %H:%M"))
         print('(' + str(message.channel) + ')' + str(message.author) + ': ' + str(message.content))
-        #  if message.content.startswith('Том') or message.content.startswith('Tom'):
         if re.match(r'Том\b', message.content) is not None or re.match(r'Tom\b', message.content) is not None:
             await channel.send(random.choice(answers.hi_list))
-        #  if message.content.startswith('том') or message.content.startswith('tom'):
         if re.match(r'том\b', message.content) is not None or re.match(r'tom\b', message.content) is not None:
             await channel.send("А может с большой буквы ?")
         if re.match(r'\d+[ ][+][ ]\d+$', message.content) is not None or re.match(r'\d+[+]\d+$', message.content):
