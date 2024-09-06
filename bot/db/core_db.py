@@ -48,7 +48,10 @@ class db:
         for result in self.cursor.execute('select id from guilds where id_guild=' + str(guild_id), multi=True):
             if result.with_rows:
                 check = result.fetchall()
-        return ''.join(map(str, check[0]))
+                if check:
+                    return ''.join(map(str, check[0]))
+                else:
+                    return check
 
     def voice_commands_get(self, id_g):
         self.check_connection()
